@@ -10,6 +10,12 @@
     yum:
       name: nfs-utils
       state: present
+
+  - name: Asegurar servicio NFS active y enabled
+    ansible.builtin.service:
+      name: nfs-server
+      state: started
+      enabled: yes
 ...
 
 

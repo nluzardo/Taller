@@ -8,6 +8,8 @@
   - name: Chequear servidor NFS este instalado en Centos
     when: ansible_facts['os_family'] == "RedHat"
     yum:
-      pkg: nfs-utils
-      state: installed
+      name: nfs-utils
+      state: present
 ...
+
+

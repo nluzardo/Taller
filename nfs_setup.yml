@@ -1,0 +1,30 @@
+---
+- hosts: centos
+  user: sysadmin
+  become: yes
+
+  tasks:
+
+  - name: Chequear servidor NFS este instalado en Centos
+    when: ansible_facts['os_family'] == "RedHat"
+    yum:
+      name: nfs-utils
+      state: present
+
+  - name: Asegurar servicio NFS active y enabled
+    ansible.builtin.service:
+      name: nfs-server
+      state: started
+      enabled: yes
+
+  - name: Habilitar puerto 2049 en firewalld
+    ansible.posix.firewalld:
+      port: 2049/tcp
+      state: enabled
+      permanent: yes
+      immediate: true
+      offline: true
+...
+
+
+

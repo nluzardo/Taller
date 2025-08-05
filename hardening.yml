@@ -5,6 +5,13 @@
   gather_facts: no
 
   tasks:
+   - name: Actualizar paquetes
+     ansible.builtin.apt:
+       upgrade: dist
+       update_cache: yes
+     register: apt_upgrade
+     notify: Reinicio server
+
    - name: Deshabilitar login de root
      ansible.builtin.lineinfile:
        path: /etc/ssh/sshd_config
@@ -31,4 +38,9 @@
      service:
        name: "{{ ssh_service }}"
        state: restarted
+
+   - name: Reinicio server
+     ansible.builtin.reboot:
+     when: apt_upgrade is changed
+
 ...

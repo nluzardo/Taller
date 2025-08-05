@@ -1,0 +1,34 @@
+---
+- hosts: ubuntu
+  user: "{{ ansible_user }}"
+  become: yes
+  gather_facts: no
+
+  tasks:
+   - name: Deshabilitar login de root
+     ansible.builtin.lineinfile:
+       path: /etc/ssh/sshd_config
+       regexp: '#PermitRootLogin '
+       line: PermitRootLogin no
+     notify: Reiniciar ssh
+
+   - name: Deshabilitar inicio de sesion con password
+     ansible.builtin.lineinfile:
+       path: /etc/ssh/sshd_config
+       regexp: '#AuthenticationMethods '
+       line: Authenticationmethods publickey
+     notify: Reiniciar ssh
+
+   - name: Habilitar inicio con llave publica
+     ansible.builtin.lineinfile:
+       path: /etc/ssh/sshd_config
+       regexp: '#PubkeyAuthentication '
+       line: PubkeyAuthentication yes
+     notify: Reiniciar ssh
+
+  handlers:
+   - name: Reiniciar ssh
+     service:
+       name: "{{ ssh_service }}"
+       state: restarted
+...

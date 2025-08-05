@@ -25,6 +25,14 @@
       immediate: true
       offline: true
 
+  - name: Chequear que /var/nfs_shared exista, que pertenezca a nobody, y permisos 777
+    ansible.builtin.file:
+      path: /var/nfs_shared
+      state: directory
+      owner: nobody
+      group: nobody
+      mode:  '0777'
+
   handlers:
     - name: reinciar servicio
       service:

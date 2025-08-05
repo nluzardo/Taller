@@ -1,15 +1,15 @@
 ---
 - hosts: centos
-  user: sysadmin
+  user: " {{ ansible_user }} "
   become: yes
 
   tasks:
 
   - name: Chequear servidor NFS este instalado en Centos
-    when: ansible_facts['os_family'] == "RedHat"
-    yum:
-      name: nfs-utils
-      state: present
+    ansible.builtin.package:
+      name: "{{ nfs_utils }}"
+      state: latest
+    notify: reiniciar servicio
 
   - name: Asegurar servicio NFS active y enabled
     ansible.builtin.service:
@@ -24,6 +24,12 @@
       permanent: yes
       immediate: true
       offline: true
+
+  handlers:
+    - name: reinciar servicio
+      service:
+       name: "{{ nfs_utils }}"
+       state: restarted
 ...
 
 

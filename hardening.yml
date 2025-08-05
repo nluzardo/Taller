@@ -2,7 +2,6 @@
 - hosts: ubuntu
   user: "{{ ansible_user }}"
   become: yes
-  gather_facts: no
 
   tasks:
    - name: Actualizar paquetes
@@ -32,6 +31,21 @@
        regexp: '#PubkeyAuthentication '
        line: PubkeyAuthentication yes
      notify: Reiniciar ssh
+
+   - name: UFW habilitado y bloqueando trafico
+     community.general.ufw:
+       state: enabled
+       default: deny
+       direction: incoming
+     when: ansible_facts['os_family'] == "Debian"
+
+   - name: Permitir SSH en UFW
+     community.general.ufw:
+       rule: allow
+       state: enable
+       port: ssh
+       proto: tcp
+     when: ansible_facts['os_family'] == "Debian"
 
   handlers:
    - name: Reiniciar ssh

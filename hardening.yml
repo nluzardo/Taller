@@ -62,7 +62,8 @@
      ansible.builtin.lineinfile:
        path: /etc/fail2ban/jail.local
        create: yes
-       line:
+       line: " {{ item }} "
+     loop:
        - "[sshd]"
        - "enabled = true"
        - "port = ssh"

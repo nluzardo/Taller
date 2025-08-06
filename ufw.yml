@@ -1,0 +1,7 @@
+  - name: habilitar puerto {{ item }} ufw
+    community.general.ufw:
+      rule: allow
+      state: enabled
+      port: " {{ item }} "
+      proto: tcp
+    when: ansible_facts['os_family'] == "Debian"

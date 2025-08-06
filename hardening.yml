@@ -15,7 +15,7 @@
      ansible.builtin.lineinfile:
        path: /etc/ssh/sshd_config
        regexp: "{{ item.buscar }}"
-       line: "{{item.reemplazar }}
+       line: "{{ item.reemplazar }}"
      loop:
        - { buscar: '#PermitRootLogin ', reemplazar: 'PermitRootLogin no' }
        - { buscar: '#AuthenticationMethods ', reemplazar: 'Authenticationmethods publickey' }

@@ -23,12 +23,10 @@
      notify: Reiniciar ssh
 
    - name: Permitir SSH en UFW
-     community.general.ufw:
-       rule: allow
-       state: enabled
-       port: ssh
-       proto: tcp
-     when: ansible_facts['os_family'] == "Debian"
+     ansible.builtin.include_tasks:
+       file: ufw.yml
+     loop:
+       - ssh
 
    - name: UFW habilitado y bloqueando trafico
      community.general.ufw:

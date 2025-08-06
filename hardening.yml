@@ -56,7 +56,8 @@
        - "enabled = true"
        - "port = ssh"
        - "logpath = /var/log/auth.log"
-       - "maxretry = 5"
+       - "maxretry = 3"
+       - "bantime = 600"
      notify: Reiniciar Fail2Ban
 
   handlers:

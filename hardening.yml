@@ -14,22 +14,12 @@
    - name: Deshabilitar login de root
      ansible.builtin.lineinfile:
        path: /etc/ssh/sshd_config
-       regexp: '#PermitRootLogin '
-       line: PermitRootLogin no
-     notify: Reiniciar ssh
-
-   - name: Deshabilitar inicio de sesion con password
-     ansible.builtin.lineinfile:
-       path: /etc/ssh/sshd_config
-       regexp: '#AuthenticationMethods '
-       line: Authenticationmethods publickey
-     notify: Reiniciar ssh
-
-   - name: Habilitar inicio con llave publica
-     ansible.builtin.lineinfile:
-       path: /etc/ssh/sshd_config
-       regexp: '#PubkeyAuthentication '
-       line: PubkeyAuthentication yes
+       regexp: "{{ item.buscar }}"
+       line: "{{item.reemplazar }}
+     loop:
+       - { buscar: '#PermitRootLogin ', reemplazar: 'PermitRootLogin no' }
+       - { buscar: '#AuthenticationMethods ', reemplazar: 'Authenticationmethods publickey' }
+       - { buscar: '#PubkeyAuthentication ', reemplazar: 'PubkeyAuthentication yes' }
      notify: Reiniciar ssh
 
    - name: Permitir SSH en UFW

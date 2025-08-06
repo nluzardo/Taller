@@ -34,11 +34,12 @@
       mode:  '0777'
 
   handlers:
-    - name: reinciar servicio
+    - name: reiniciar servicio
       service:
        name: "{{ nfs_utils }}"
        state: restarted
 ...
+
 
 
 

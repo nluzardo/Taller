@@ -1,6 +1,6 @@
   - name: habilitar puerto {{ item }} fwd
     ansible.posix.firewalld:
-      service: "{{ item }}"
+      port: "{{ item }}"
       state: enabled
       permanent: true
       immediate: true

@@ -9,7 +9,7 @@
     ansible.builtin.package:
       name: "{{ nfs_utils }}"
       state: latest
-    notify: reiniciar servicio
+    notify: Reiniciar NFS_utils
 
   - name: Asegurar servicio NFS active y enabled
     ansible.builtin.service:
@@ -21,7 +21,9 @@
     ansible.builtin.include_tasks:
       file: fwd.yml
     loop:
-      - 2049
+      - 2049/tcp
+     # - 111/tcp
+     # - 13025/tcp
 
   - name: Chequear que /var/nfs_shared exista, que pertenezca a nobody, y permisos 777
     ansible.builtin.file:
@@ -31,11 +33,31 @@
       group: nobody
       mode:  '0777'
 
+  - name: Modificar puerto /etc/nfs.conf
+    ansible.builtin.lineinfile:
+      path: /etc/nfs.conf
+      line: port=2049
+      insertafter: '\[mountd\]'
+      state: present
+
+  - name: Asegurar que /var/nfs_shared este en /etc/exports
+    ansible.builtin.lineinfile:
+      path: /etc/exports
+      line: "/var/nfs_shared *(rw,root_squash)"
+      state: present
+      create: yes
+    notify: Reiniciar NFS_Server
+
   handlers:
-    - name: reiniciar servicio
+    - name: Reiniciar NFS_utils
       service:
-       name: "{{ nfs_utils }}"
-       state: restarted
+        name: "{{ nfs_utils }}"
+        state: restarted
+
+    - name: Reiniciar NFS_Server
+      service:
+        name: "{{ nfs_server }}"
+        state: restarted
 ...
 
 

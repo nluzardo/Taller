@@ -19,11 +19,11 @@
 
   - name: Habilitar puerto 2049 en firewalld
     ansible.builtin.include_tasks:
-      file: fwd.yml
+      file: ./tasks/fwd.yml
     loop:
       - 2049/tcp
-     # - 111/tcp
-     # - 13025/tcp
+      - 111/tcp
+      - 13025/tcp
 
   - name: Chequear que /var/nfs_shared exista, que pertenezca a nobody, y permisos 777
     ansible.builtin.file:

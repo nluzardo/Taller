@@ -24,7 +24,7 @@
 
    - name: Permitir SSH en UFW
      ansible.builtin.include_tasks:
-       file: ufw.yml
+       file: ./tasks/ufw.yml
      loop:
        - ssh
 

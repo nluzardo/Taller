@@ -1,0 +1,4 @@
+---
+#Variables para Ubuntu.
+ubuntu0 ansible_host=192.168.1.2 ansible_user=sysadmin
+ssh_service: ssh

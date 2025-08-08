@@ -1,5 +1,5 @@
 ---
 #Variables para centos
-centos0 ansible_host=192.168.1.3 ansible_user=sysadmin
-nfs_utils:nfs-utils
-nfs_server:nfs-server
+ansible_user: sysadmin
+nfs_utils: nfs-utils
+nfs_server: nfs-server

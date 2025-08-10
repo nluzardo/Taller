@@ -1,0 +1,24 @@
+centos0 | CHANGED | rc=0 >>
+● chronyd.service - NTP client/server
+     Loaded: loaded (/usr/lib/systemd/system/chronyd.service; enabled; preset: enabled)
+     Active: active (running) since Sun 2025-08-10 16:49:17 -03; 24min ago
+       Docs: man:chronyd(8)
+             man:chrony.conf(5)
+    Process: 733 ExecStart=/usr/sbin/chronyd $OPTIONS (code=exited, status=0/SUCCESS)
+   Main PID: 749 (chronyd)
+      Tasks: 1 (limit: 10508)
+     Memory: 4.1M
+        CPU: 103ms
+     CGroup: /system.slice/chronyd.service
+             └─749 /usr/sbin/chronyd -F 2
+
+ago 10 16:49:17 centos0 chronyd[749]: chronyd version 4.6.1 starting (+CMDMON +NTP +REFCLOCK +RTC +PRIVDROP +SCFILTER +SIGND +ASYNCDNS +NTS +SECHASH +IPV6 +DEBUG)
+ago 10 16:49:17 centos0 chronyd[749]: Loaded 0 symmetric keys
+ago 10 16:49:17 centos0 chronyd[749]: Using right/UTC timezone to obtain leap second data
+ago 10 16:49:17 centos0 chronyd[749]: Frequency -7.114 +/- 18.418 ppm read from /var/lib/chrony/drift
+ago 10 16:49:17 centos0 chronyd[749]: Loaded seccomp filter (level 2)
+ago 10 16:49:17 centos0 systemd[1]: Started NTP client/server.
+ago 10 16:49:27 centos0 chronyd[749]: Selected source 200.40.115.74 (2.centos.pool.ntp.org)
+ago 10 16:49:27 centos0 chronyd[749]: System clock wrong by 1.379608 seconds
+ago 10 16:49:28 centos0 chronyd[749]: System clock was stepped by 1.379608 seconds
+ago 10 16:49:28 centos0 chronyd[749]: System clock TAI offset set to 37 seconds

@@ -1,0 +1,46 @@
+{
+    "_meta": {
+        "hostvars": {
+            "centos0": {
+                "ansible_host": "192.168.1.3",
+                "ansible_user": "sysadmin",
+                "nfs_server": "nfs-server",
+                "nfs_utils": "nfs-utils"
+            },
+            "ubuntu0": {
+                "ansible_host": "192.168.1.2",
+                "ansible_user": "sysadmin",
+                "ssh_service": "ssh"
+            }
+        },
+        "profile": "inventory_legacy"
+    },
+    "all": {
+        "children": [
+            "ungrouped",
+            "webservers",
+            "linux"
+        ]
+    },
+    "centos": {
+        "hosts": [
+            "centos0"
+        ]
+    },
+    "linux": {
+        "children": [
+            "ubuntu",
+            "centos"
+        ]
+    },
+    "ubuntu": {
+        "hosts": [
+            "ubuntu0"
+        ]
+    },
+    "webservers": {
+        "hosts": [
+            "centos0"
+        ]
+    }
+}

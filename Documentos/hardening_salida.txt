@@ -1,0 +1,49 @@
+
+PLAY [ubuntu] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [ubuntu0]
+
+TASK [Actualizar paquetes] *****************************************************
+changed: [ubuntu0]
+
+TASK [Deshabilitar login de root] **********************************************
+changed: [ubuntu0] => (item={'buscar': '#PermitRootLogin ', 'reemplazar': 'PermitRootLogin no'})
+changed: [ubuntu0] => (item={'buscar': '#AuthenticationMethods ', 'reemplazar': 'Authenticationmethods publickey'})
+changed: [ubuntu0] => (item={'buscar': '#PubkeyAuthentication ', 'reemplazar': 'PubkeyAuthentication yes'})
+
+TASK [Permitir SSH en UFW] *****************************************************
+included: /home/sysadmin/Taller/tasks/ufw.yml for ubuntu0 => (item=ssh)
+
+TASK [habilitar puerto ssh ufw] ************************************************
+changed: [ubuntu0]
+
+TASK [UFW habilitado y bloqueando trafico] *************************************
+ok: [ubuntu0]
+
+TASK [Instalar Fail2Ban] *******************************************************
+changed: [ubuntu0]
+
+TASK [Habilitar y arrancar Fail2Ban] *******************************************
+ok: [ubuntu0]
+
+TASK [Configurar Fail2ban] *****************************************************
+changed: [ubuntu0] => (item=[sshd])
+changed: [ubuntu0] => (item=enabled = true)
+changed: [ubuntu0] => (item=port = ssh)
+changed: [ubuntu0] => (item=logpath = /var/log/auth.log)
+changed: [ubuntu0] => (item=maxretry = 3)
+changed: [ubuntu0] => (item=bantime = 600)
+
+RUNNING HANDLER [Reiniciar ssh] ************************************************
+changed: [ubuntu0]
+
+RUNNING HANDLER [Reinicio server] **********************************************
+changed: [ubuntu0]
+
+RUNNING HANDLER [Reiniciar Fail2Ban] *******************************************
+changed: [ubuntu0]
+
+PLAY RECAP *********************************************************************
+ubuntu0                    : ok=12   changed=8    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+

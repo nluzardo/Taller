@@ -1,0 +1,44 @@
+
+PLAY [centos] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [centos0]
+
+TASK [Chequear servidor NFS este instalado en Centos] **************************
+changed: [centos0]
+
+TASK [Asegurar servicio NFS active y enabled] **********************************
+changed: [centos0]
+
+TASK [Habilitar puerto 2049 en firewalld] **************************************
+included: /home/sysadmin/Taller/tasks/fwd.yml for centos0 => (item=2049/tcp)
+included: /home/sysadmin/Taller/tasks/fwd.yml for centos0 => (item=111/tcp)
+included: /home/sysadmin/Taller/tasks/fwd.yml for centos0 => (item=13025/tcp)
+
+TASK [habilitar puerto 2049/tcp fwd] *******************************************
+changed: [centos0]
+
+TASK [habilitar puerto 111/tcp fwd] ********************************************
+changed: [centos0]
+
+TASK [habilitar puerto 13025/tcp fwd] ******************************************
+changed: [centos0]
+
+TASK [Chequear que /var/nfs_shared exista, que pertenezca a nobody, y permisos 777] ***
+changed: [centos0]
+
+TASK [Modificar puerto /etc/nfs.conf] ******************************************
+changed: [centos0]
+
+TASK [Asegurar que /var/nfs_shared este en /etc/exports] ***********************
+changed: [centos0]
+
+RUNNING HANDLER [Reiniciar NFS_utils] ******************************************
+changed: [centos0]
+
+RUNNING HANDLER [Reiniciar NFS_Server] *****************************************
+changed: [centos0]
+
+PLAY RECAP *********************************************************************
+centos0                    : ok=14   changed=10   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
